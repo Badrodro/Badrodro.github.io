@@ -96,7 +96,25 @@ data into and out of the network.
 I built an open flow that goes from a trained model to a SKY130 netlist, places it with OpenROAD,
 simulates it at gate level on real test images, and derives area and energy from the recorded
 switching activity. It also checks that the gate-level netlist reproduces the software model
-bit for bit. Write-up in progress.
+bit for bit (49/50 test images correct, the same answers as the software).
+</p>
+<table class="specs">
+  <tr><th>Full design</th><td>2&nbsp;000 gates, 2&nbsp;368-bit input register and vote-counting head:
+      78&nbsp;099&nbsp;&micro;m&sup2;, 3.1&nbsp;nJ per inference at 50&nbsp;MHz.</td></tr>
+  <tr><th>Where the power goes</th><td>84&nbsp;% in flip-flops, mostly the input register (clocked every
+      cycle, no clock gating). The gates themselves are small: about 12&nbsp;&micro;m&sup2; each.</td></tr>
+  <tr><th>Output head</th><td>About 60&nbsp;000&nbsp;&micro;m&sup2; to count 2&nbsp;000 votes into
+      10 classes, exact on 199/199 test vectors.</td></tr>
+  <tr><th>Negative results</th><td>A wire-length penalty during training makes real wires longer,
+      not shorter; fewer voters per class costs accuracy; 3-input majority gates are not better than
+      2-input gates; dominance-tree networks tie at best with a narrower dense network.</td></tr>
+</table>
+<p class="note">Single training seed, accuracy below the state of the art, and power without routed
+wire parasitics: the energy figures are lower bounds.</p>
+<p>
+Code, raw results and a claim-by-claim audit are on
+<a href="https://github.com/Badrodro/lgn-energy-sky130">GitHub</a>
+(Apache-2.0).
 </p>
 
 <h2 id="quant">4-bit weight formats for LLM inference hardware</h2>

@@ -45,10 +45,12 @@
             LVS-clean GDSII macro with LibreLane, 0.22&nbsp;mm&sup2;, 40&nbsp;MHz at the typical corner.</li>
       </ul>
       <a href="projects.html#rv32i">Details</a></li>
-  <li><b>Area and energy accounting of logic-gate neural networks</b> (2026). Independent project,
-      write-up in progress. Open flow from a trained model to gate-level energy on SKY130, with a
-      bit-exact check of the netlist against the model.
-      <a href="projects.html#lgn">Details</a></li>
+  <li><b>Area and energy accounting of logic-gate neural networks</b> (2026). Independent project.
+      Open flow from a trained model to gate-level energy on SKY130, with a bit-exact check of the
+      netlist against the model; counts the input register, the output head and the wires, which
+      comparisons usually leave out.
+      <a href="projects.html#lgn">Details</a> &middot;
+      <a href="https://github.com/Badrodro/lgn-energy-sky130">source code</a></li>
   <li><b>4-bit weight formats for LLM inference hardware</b> (2026). Independent project, Python and
       PyTorch. Perplexity of NVFP4, MXFP4, INT4, Lloyd-Max and trellis-coded quantization on three
       LLMs, compared at equal quality with a decision rule fixed before the runs.
