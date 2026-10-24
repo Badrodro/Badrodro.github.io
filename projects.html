@@ -42,12 +42,12 @@ The source code and the verification and implementation scripts are on
 
 <figure>
   <a href="img/rv32i_sky130_layout.png"><img src="img/rv32i_sky130_layout.png" width="1400" height="755"
-     alt="Placement and routing of the RV32I-Alpha core in SKY130: register-file flip-flops spread over the die, signal wires on four metal layers."></a>
+     alt="Layout of the RV32I-Alpha core in SKY130: register-file flip-flops spread over the die, signal wires on five metal layers and the power grid."></a>
   <figcaption>
-    <b>Fig. 1.</b> RV32I-Alpha core (SystemVerilog version, synthesized with Yosys) placed and routed
-    with OpenROAD in sky130_fd_sc_hd. (a) Standard-cell placement; the 992 register-file flip-flops
-    are shown in blue. (b) Signal wires on met1&ndash;met4. Drawn directly from the routed DEF.
-    No power grid, no clock tree, no tape-out: this is an area and wiring study.
+    <b>Fig. 1.</b> RV32I-Alpha core hardened with LibreLane in sky130_fd_sc_hd (DRC- and LVS-clean
+    GDSII, 466.9&nbsp;&times;&nbsp;477.6&nbsp;&micro;m). (a) Standard-cell placement; the 992
+    register-file flip-flops are shown in blue. (b) Signal wires on met1&ndash;met5 and the power
+    grid. Drawn directly from the final DEF. Not taped out.
   </figcaption>
 </figure>
 
@@ -62,22 +62,25 @@ The source code and the verification and implementation scripts are on
   <tr><th>Mutation testing</th><td>8 bugs injected one at a time while the checks were written;
       each was caught by at least one check.</td></tr>
   <tr><th>Equivalence</th><td>VHDL and SystemVerilog versions proven equivalent with Yosys
-      (<code>equiv_make</code> / <code>equiv_induct</code>): 1826 / 1826 cells.</td></tr>
-  <tr><th>Simulation</th><td>Instruction torture test passes in 197 cycles (Icarus Verilog).</td></tr>
+      (<code>equiv_make</code> / <code>equiv_induct</code>): 1794 / 1794 cells.</td></tr>
+  <tr><th>Simulation</th><td>Self-checking torture test passes in 197 cycles (GHDL).</td></tr>
+  <tr><th>CI</th><td>Simulation, formal checks and equivalence run on every push (GitHub Actions).</td></tr>
 </table>
 <p class="note">Bounded checks show the absence of counterexamples up to the stated depth, not
 correctness for all executions.</p>
 
 <h3>Implementation</h3>
 <table class="specs">
-  <tr><th>FPGA</th><td>Digilent Basys 3 (Xilinx Artix-7 XC7A35T), Vivado non-project flow.</td></tr>
-  <tr><th>SKY130 synthesis</th><td>Yosys, sky130_fd_sc_hd, typical corner:
-      4&nbsp;696 cells, 59&nbsp;557&nbsp;&micro;m&sup2; of standard cells
-      (register file built from flip-flops).</td></tr>
-  <tr><th>SKY130 place and route</th><td>OpenROAD, die 375.8&nbsp;&times;&nbsp;375.8&nbsp;&micro;m
-      (0.141&nbsp;mm&sup2;), 47&nbsp;% core utilization, 234&nbsp;mm of signal wire, 42&nbsp;237 vias,
-      no violations reported by the detailed router. Not done: power grid, clock-tree synthesis,
-      timing closure, sign-off DRC/LVS.</td></tr>
+  <tr><th>FPGA</th><td>Digilent Basys 3 (Artix-7 XC7A35T), Vivado 2024.2. Core alone, out of context:
+      675 LUTs (44 as distributed RAM for the register file), 63 flip-flops, 100&nbsp;MHz met.
+      Full board build: 751 LUTs, 127 flip-flops, 1 BRAM; misses 100&nbsp;MHz by 0.54&nbsp;ns
+      (about 95&nbsp;MHz).</td></tr>
+  <tr><th>SKY130 (GDSII)</th><td>LibreLane, sky130_fd_sc_hd: power grid, clock tree, timing repair,
+      routing and sign-off. 0.223&nbsp;mm&sup2;, 13&nbsp;350 standard cells. DRC (Magic, KLayout),
+      LVS and antenna checks clean.</td></tr>
+  <tr><th>SKY130 timing</th><td>40&nbsp;MHz: setup met at the typical (+4.24&nbsp;ns) and fast
+      corners, not met at the slow corner (&minus;4.85&nbsp;ns); hold met at every corner.
+      5.9&nbsp;mW at 40&nbsp;MHz, typical corner.</td></tr>
 </table>
 
 <h2 id="lgn">Energy accounting of logic-gate neural networks</h2>

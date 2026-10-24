@@ -37,8 +37,8 @@ electronics because of digital design.
 I design digital hardware, from RTL to layout, with open-source tools.
 My main project is <a href="projects.html#rv32i">RV32I-Alpha</a>, a two-stage RISC-V (RV32I) core
 written in VHDL and SystemVerilog. Its instruction-level behaviour is checked with
-<a href="https://github.com/YosysHQ/riscv-formal">riscv-formal</a>, and it is implemented on an
-Artix-7 FPGA and in the SkyWater SKY130 process.
+<a href="https://github.com/YosysHQ/riscv-formal">riscv-formal</a>; it runs on an Artix-7 FPGA and
+is hardened to a DRC- and LVS-clean GDSII macro in the SkyWater SKY130 process.
 </p>
 <p>
 I am also working on the measurement side of energy-efficient inference hardware: how to account
@@ -59,8 +59,8 @@ I am looking for a research internship in digital hardware design for summer 202
 
 <h2>News</h2>
 <ul>
-  <li><b>Oct 2026.</b> RV32I-Alpha placed and routed in SKY130 with OpenROAD
-      (<a href="projects.html#rv32i">layout</a>).</li>
+  <li><b>Oct 2026.</b> RV32I-Alpha hardened to GDSII in SKY130 with LibreLane: DRC and LVS clean,
+      0.22&nbsp;mm&sup2; (<a href="projects.html#rv32i">layout</a>).</li>
   <li><b>Oct 2026.</b> Built an open, reproducible flow that measures the area and energy of
       logic-gate neural networks on SKY130 from gate-level simulation on real data. Write-up in
       progress.</li>
