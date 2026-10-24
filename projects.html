@@ -93,6 +93,35 @@ switching activity. It also checks that the gate-level netlist reproduces the so
 bit for bit. Write-up in progress.
 </p>
 
+<h2 id="quant">4-bit weight formats for LLM inference hardware</h2>
+<p>
+Inference accelerators are moving to 4-bit weights, and each vendor picks a format: INT4, MXFP4 (OCP)
+or NVFP4 (NVIDIA). I measured how much quality each format keeps on three open models
+(Qwen2.5-0.5B, Qwen2.5-1.5B, SmolLM2-1.7B), and whether a trellis-coded quantizer (QTIP-style)
+saves enough bits over the best scalar format to be worth its decoder in hardware.
+</p>
+<p>
+All linear layers of the transformer blocks are quantized by round-to-nearest (Viterbi for the
+trellis), without calibration data, and perplexity is measured on WikiText-2 and C4. Every scalar
+format is tested with and without a random Hadamard rotation. The decision rule was fixed before the
+runs: keep the trellis only if it saves at least 10&nbsp;% of the bits against the best scalar format,
+on every model and corpus.
+</p>
+<table class="specs">
+  <tr><th>vs. NVFP4</th><td>The trellis reaches the same perplexity with 11&ndash;17&nbsp;% fewer bits.</td></tr>
+  <tr><th>vs. INT4, MXFP4</th><td>About 15&ndash;20&nbsp;% fewer bits.</td></tr>
+  <tr><th>vs. Lloyd-Max</th><td>Only 6&ndash;9&nbsp;% fewer bits. A non-uniform scalar 4-bit format
+      (Lloyd-Max) with rotation, at 4.25 bits per weight, already captures most of the gain, so the
+      rule fails: the trellis is not worth its decoder.</td></tr>
+</table>
+<p class="note">Simulated quantization (no kernels, so no speed or energy measurement), weights only,
+small models, one seed.</p>
+<p>
+Code, raw results and analysis are on
+<a href="https://github.com/Badrodro/llm-4bit-quant-formats">GitHub</a>
+(Apache-2.0).
+</p>
+
 <footer>Last updated: October 2026.</footer>
 </body>
 </html>
