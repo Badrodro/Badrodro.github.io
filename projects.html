@@ -64,6 +64,9 @@ The source code and the verification and implementation scripts are on
   <tr><th>Equivalence</th><td>VHDL and SystemVerilog versions proven equivalent with Yosys
       (<code>equiv_make</code> / <code>equiv_induct</code>): 1794 / 1794 cells.</td></tr>
   <tr><th>Simulation</th><td>Self-checking torture test passes in 197 cycles (GHDL).</td></tr>
+  <tr><th>riscv-tests</th><td>40 <code>rv32ui</code> tests pass with random data-port wait states
+      (<code>fence_i</code> and <code>ma_data</code> skipped: no self-modifying code, misaligned
+      accesses trap by design).</td></tr>
   <tr><th>CI</th><td>Simulation, formal checks and equivalence run on every push (GitHub Actions).</td></tr>
 </table>
 <p class="note">Bounded checks show the absence of counterexamples up to the stated depth, not
@@ -74,8 +77,8 @@ correctness for all executions.</p>
   <tr><th>FPGA</th><td>Digilent Basys 3 (Artix-7 XC7A35T), Vivado 2024.2. Core alone, out of context:
       675 LUTs (44 as distributed RAM for the register file), 63 flip-flops, 100&nbsp;MHz met.
       Full board build: 751 LUTs, 127 flip-flops, 1 BRAM; misses 100&nbsp;MHz by 0.54&nbsp;ns
-      (about 95&nbsp;MHz).</td></tr>
-  <tr><th>SKY130 (GDSII)</th><td>LibreLane, sky130_fd_sc_hd: power grid, clock tree, timing repair,
+      (about 95&nbsp;MHz). Not yet tested on a board.</td></tr>
+  <tr><th>SKY130 (GDSII)</th><td>LibreLane, sky130_fd_sc_hd (GDSII and LEF in the repository): power grid, clock tree, timing repair,
       routing and sign-off. 0.223&nbsp;mm&sup2;, 13&nbsp;350 standard cells. DRC (Magic, KLayout),
       LVS and antenna checks clean.</td></tr>
   <tr><th>SKY130 timing</th><td>40&nbsp;MHz: setup met at the typical (+4.24&nbsp;ns) and fast

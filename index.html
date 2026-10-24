@@ -37,8 +37,9 @@ electronics because of digital design.
 I design digital hardware, from RTL to layout, with open-source tools.
 My main project is <a href="projects.html#rv32i">RV32I-Alpha</a>, a two-stage RISC-V (RV32I) core
 written in VHDL and SystemVerilog. Its instruction-level behaviour is checked with
-<a href="https://github.com/YosysHQ/riscv-formal">riscv-formal</a>; it runs on an Artix-7 FPGA and
-is hardened to a DRC- and LVS-clean GDSII macro in the SkyWater SKY130 process.
+<a href="https://github.com/YosysHQ/riscv-formal">riscv-formal</a> and passes the official
+<code>rv32ui</code> tests; it is built for an Artix-7 FPGA and hardened to a DRC- and LVS-clean GDSII
+macro in the SkyWater SKY130 process.
 </p>
 <p>
 I am also working on the measurement side of energy-efficient inference hardware: how to account
