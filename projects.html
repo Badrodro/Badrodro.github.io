@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects &mdash; Badreddine Benfettouma</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Badreddine Benfettouma</h1>
+    <p class="affil">Projects</p>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a class="here" href="projects.html">Projects</a>
+  <a href="cv.html">CV</a>
+</nav>
+
+<h2 id="rv32i">RV32I-Alpha: a two-stage RISC-V core</h2>
+<p>
+RV32I-Alpha implements the 37 instructions of the RV32I base ISA, in VHDL and in SystemVerilog,
+with a two-stage pipeline (fetch, execute). The register of the synchronous instruction memory doubles as the
+pipeline register.
+</p>
+<ul>
+  <li>Branches are predicted not taken and cost one bubble when taken.</li>
+  <li>Loads take two cycles.</li>
+  <li>The data port accepts wait states.</li>
+  <li>Illegal instructions, <code>ECALL</code>, <code>EBREAK</code> and misaligned accesses or jump
+      targets stop the core in a trap state.</li>
+</ul>
+<p>
+The source code and the verification and implementation scripts are on
+<a href="https://github.com/Badrodro/RV32I-Alpha">GitHub</a>
+(Apache-2.0).
+</p>
+
+<figure>
+  <a href="img/rv32i_sky130_layout.png"><img src="img/rv32i_sky130_layout.png" width="1400" height="755"
+     alt="Placement and routing of the RV32I-Alpha core in SKY130: register-file flip-flops spread over the die, signal wires on four metal layers."></a>
+  <figcaption>
+    <b>Fig. 1.</b> RV32I-Alpha core (SystemVerilog version, synthesized with Yosys) placed and routed
+    with OpenROAD in sky130_fd_sc_hd. (a) Standard-cell placement; the 992 register-file flip-flops
+    are shown in blue. (b) Signal wires on met1&ndash;met4. Drawn directly from the routed DEF.
+    No power grid, no clock tree, no tape-out: this is an area and wiring study.
+  </figcaption>
+</figure>
+
+<h3>Verification</h3>
+<table class="specs">
+  <tr><th>Instruction checks</th><td>riscv-formal: 37 instruction checks plus <code>reg</code>,
+      <code>pc_fwd</code>, <code>pc_bwd</code>, <code>causal</code>, <code>unique</code>,
+      <code>liveness</code>, <code>ill</code> and <code>cover</code>. Bounded model checking,
+      depth 10&ndash;15 cycles.</td></tr>
+  <tr><th>Memory ports</th><td>3 additional SymbiYosys tasks: instruction port, data port with
+      random wait states, independent reference for illegal encodings. Depth 10&ndash;16.</td></tr>
+  <tr><th>Mutation testing</th><td>8 bugs injected one at a time while the checks were written;
+      each was caught by at least one check.</td></tr>
+  <tr><th>Equivalence</th><td>VHDL and SystemVerilog versions proven equivalent with Yosys
+      (<code>equiv_make</code> / <code>equiv_induct</code>): 1826 / 1826 cells.</td></tr>
+  <tr><th>Simulation</th><td>Instruction torture test passes in 197 cycles (Icarus Verilog).</td></tr>
+</table>
+<p class="note">Bounded checks show the absence of counterexamples up to the stated depth, not
+correctness for all executions.</p>
+
+<h3>Implementation</h3>
+<table class="specs">
+  <tr><th>FPGA</th><td>Digilent Basys 3 (Xilinx Artix-7 XC7A35T), Vivado non-project flow.</td></tr>
+  <tr><th>SKY130 synthesis</th><td>Yosys, sky130_fd_sc_hd, typical corner:
+      4&nbsp;696 cells, 59&nbsp;557&nbsp;&micro;m&sup2; of standard cells
+      (register file built from flip-flops).</td></tr>
+  <tr><th>SKY130 place and route</th><td>OpenROAD, die 375.8&nbsp;&times;&nbsp;375.8&nbsp;&micro;m
+      (0.141&nbsp;mm&sup2;), 47&nbsp;% core utilization, 234&nbsp;mm of signal wire, 42&nbsp;237 vias,
+      no violations reported by the detailed router. Not done: power grid, clock-tree synthesis,
+      timing closure, sign-off DRC/LVS.</td></tr>
+</table>
+
+<h2 id="lgn">Energy accounting of logic-gate neural networks</h2>
+<p>
+Logic-gate networks replace multiply-accumulate operations by trained two-input Boolean gates.
+Published comparisons usually count gates or FPGA look-up tables, and leave out the cost of getting
+data into and out of the network.
+</p>
+<p>
+I built an open flow that goes from a trained model to a SKY130 netlist, places it with OpenROAD,
+simulates it at gate level on real test images, and derives area and energy from the recorded
+switching activity. It also checks that the gate-level netlist reproduces the software model
+bit for bit. Write-up in progress.
+</p>
+
+<footer>Last updated: October 2026.</footer>
+</body>
+</html>

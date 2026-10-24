@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV &mdash; Badreddine Benfettouma</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Badreddine Benfettouma</h1>
+    <p class="affil">Curriculum vitae &nbsp;&middot;&nbsp; <a href="cv/Badreddine_Benfettouma_CV.pdf">PDF version</a></p>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="projects.html">Projects</a>
+  <a class="here" href="cv.html">CV</a>
+</nav>
+
+<h2>Education</h2>
+<table class="specs">
+  <tr><th>2026&ndash;2027</th><td><b>Licence 3 (third year of the Bachelor), Electronics</b><br>
+      Université Bourgogne Europe, Dijon, France</td></tr>
+  <tr><th>2024&ndash;2026</th><td><b>Licence 1 and 2, Computer Science and Electronics track</b><br>
+      Université de Bourgogne (Université Bourgogne Europe since January 2025), Dijon, France<br>
+      Selected grades (out of 20): computer architecture 14.2 (lab 18.1), signal processing 17.5,
+      scientific computing 20.</td></tr>
+</table>
+<p class="note">The French <i>Licence</i> is a three-year bachelor's degree (180 ECTS).</p>
+
+<h2>Projects</h2>
+<ul>
+  <li><b>RV32I-Alpha: a two-stage RISC-V processor core</b> (2026). VHDL and SystemVerilog.
+      <ul>
+        <li>Two-stage pipeline implementing the 37 RV32I instructions, with traps and a data port
+            that accepts wait states.</li>
+        <li>Formal verification with riscv-formal and custom SymbiYosys properties; mutation testing;
+            proof that the VHDL and SystemVerilog versions are sequentially equivalent.</li>
+        <li>Basys 3 (Artix-7) build; synthesis, placement and routing in SKY130 with Yosys and
+            OpenROAD.</li>
+      </ul>
+      <a href="projects.html#rv32i">Details</a></li>
+  <li><b>Area and energy accounting of logic-gate neural networks</b> (2026). Independent project,
+      write-up in progress. Open flow from a trained model to gate-level energy on SKY130, with a
+      bit-exact check of the netlist against the model.
+      <a href="projects.html#lgn">Details</a></li>
+</ul>
+
+<h2>Technical skills</h2>
+<table class="specs">
+  <tr><th>HDLs</th><td>VHDL, SystemVerilog, Verilog</td></tr>
+  <tr><th>Verification</th><td>SymbiYosys, riscv-formal, Yosys equivalence checking, Icarus Verilog</td></tr>
+  <tr><th>Implementation</th><td>Vivado (Artix-7); Yosys, OpenROAD, OpenSTA, KLayout (SKY130 PDK)</td></tr>
+  <tr><th>Circuits</th><td>ngspice with SKY130 device models, Monte-Carlo mismatch analysis</td></tr>
+  <tr><th>Programming</th><td>Python (NumPy, PyTorch), Tcl, RISC-V assembly; Linux, Git</td></tr>
+</table>
+
+<h2>Languages</h2>
+<table class="specs">
+  <tr><th>French</th><td>native</td></tr>
+  <tr><th>English</th><td>C1</td></tr>
+  <tr><th>Japanese</th><td>learning; level certification in progress</td></tr>
+  <tr><th>Arabic</th><td>Algerian Arabic (spoken); reads the Arabic script</td></tr>
+</table>
+
+<footer>Last updated: October 2026.</footer>
+</body>
+</html>

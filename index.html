@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badreddine Benfettouma</title>
+<meta name="description" content="Badreddine Benfettouma: undergraduate in electronics at Université Bourgogne Europe. Digital hardware design, RISC-V, formal verification, energy-efficient inference hardware.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <!-- Optional photo: <div class="photo"><img src="img/photo.jpg" alt="Badreddine Benfettouma"></div> -->
+  <div>
+    <h1>Badreddine Benfettouma</h1>
+    <p class="affil">Undergraduate student in Electronics (third year)</p>
+    <p class="affil">Université Bourgogne Europe, Dijon, France</p>
+    <p>Email: badreddine_benfettouma (at) etu.ube.fr &nbsp;&middot;&nbsp;
+       <a href="https://github.com/Badrodro">GitHub</a> &nbsp;&middot;&nbsp;
+       <a href="cv/Badreddine_Benfettouma_CV.pdf">CV (PDF)</a></p>
+  </div>
+</header>
+
+<nav>
+  <a class="here" href="index.html">Home</a>
+  <a href="projects.html">Projects</a>
+  <a href="cv.html">CV</a>
+</nav>
+
+<h2>About</h2>
+<p>
+I am a third-year undergraduate in electronics at Université Bourgogne Europe in Dijon, France.
+I spent my first two years in a combined computer-science and electronics track, then chose
+electronics because of digital design.
+</p>
+<p>
+I design digital hardware, from RTL to layout, with open-source tools.
+My main project is <a href="projects.html#rv32i">RV32I-Alpha</a>, a two-stage RISC-V (RV32I) core
+written in VHDL and SystemVerilog. Its instruction-level behaviour is checked with
+<a href="https://github.com/YosysHQ/riscv-formal">riscv-formal</a>, and it is implemented on an
+Artix-7 FPGA and in the SkyWater SKY130 process.
+</p>
+<p>
+I am also working on the measurement side of energy-efficient inference hardware: how to account
+for the area and energy of small neural-network accelerators end to end, including the parts that
+are usually left out of the comparison (input buffering, output logic, wires).
+</p>
+<p>
+I am looking for a research internship in digital hardware design for summer 2027.
+</p>
+
+<h2>Interests</h2>
+<ul>
+  <li>Digital VLSI design and RISC-V microarchitecture</li>
+  <li>Formal verification of hardware (bounded model checking, equivalence checking)</li>
+  <li>Energy-efficient hardware for machine-learning inference</li>
+  <li>Open-source EDA flows and open PDKs (Yosys, OpenROAD, SKY130)</li>
+</ul>
+
+<h2>News</h2>
+<ul>
+  <li><b>Oct 2026.</b> RV32I-Alpha placed and routed in SKY130 with OpenROAD
+      (<a href="projects.html#rv32i">layout</a>).</li>
+  <li><b>Oct 2026.</b> Built an open, reproducible flow that measures the area and energy of
+      logic-gate neural networks on SKY130 from gate-level simulation on real data. Write-up in
+      progress.</li>
+  <li><b>Oct 2026.</b> RV32I-Alpha: two-stage pipeline, riscv-formal checks for all 37 RV32I
+      instructions, and a proven equivalence between the VHDL and SystemVerilog versions.</li>
+</ul>
+
+<footer>Last updated: October 2026.</footer>
+</body>
+</html>
